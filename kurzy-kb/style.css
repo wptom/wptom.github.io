@@ -48,12 +48,18 @@ body {
 .currency__form {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   /* Chrome, Safari, Edge, Opera */
   /* Firefox */
   /* Remove native arrow on IE */
   /*Remove dotted outline from selected option on Firefox*/
   /*https://stackoverflow.com/questions/3773430/remove-outline-from-select-box-in-ff/18853002#18853002*/
   /*We use !important to override the color set for the select on line 99*/
+}
+@media (min-width: 560px) {
+  .currency__form {
+    flex-direction: row;
+  }
 }
 .currency__form__label {
   display: block;
@@ -92,7 +98,14 @@ body {
   background-size: 15px 15px;
 }
 .currency__form-control {
-  flex-basis: 30%;
+  flex-basis: 100%;
+  margin-bottom: 10px;
+}
+@media (min-width: 560px) {
+  .currency__form-control {
+    flex-basis: 30%;
+    margin-bottom: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

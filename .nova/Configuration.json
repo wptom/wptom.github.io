@@ -2,13 +2,13 @@
   "eablokker.tabsSidebar.config.customKindGroupsOrder" : [
     "html",
     "css",
-    "javascript"
+    "json"
   ],
   "eablokker.tabsSidebar.config.customTabOrder" : [
     "\/Users\/admin\/Sites\/tomsramek.com\/index.html",
     "\/Users\/admin\/Sites\/tomsramek.com\/css\/style.css",
-    "\/Users\/admin\/Sites\/tomsramek.com\/css\/reset.css",
-    "\/Users\/admin\/.Trash\/kurzy-kb\/script.js"
+    "\/Users\/admin\/Sites\/tomsramek.com\/.nova\/Configuration.json",
+    "\/Users\/admin\/Sites\/tomsramek.com\/css\/reset.css"
   ],
   "workspace.preview_root" : "."
 }

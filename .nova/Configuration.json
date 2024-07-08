@@ -1,13 +1,9 @@
 {
   "eablokker.tabsSidebar.config.customKindGroupsOrder" : [
-    "html",
     "css"
   ],
   "eablokker.tabsSidebar.config.customTabOrder" : [
-    "\/Users\/admin\/Sites\/tomsramek.com\/index.html",
-    "\/Users\/admin\/Sites\/tomsramek.com\/css\/style.css",
-    "\/Users\/admin\/Sites\/tomsramek.com\/css\/reset.css",
-    "\/Users\/admin\/Desktop\/GradientAnimation\/Gradient.html"
+
   ],
   "workspace.preview_root" : "."
 }

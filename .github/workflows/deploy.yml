@@ -16,7 +16,7 @@ jobs:
           HOST: ${{ secrets.IP }}
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSH_PASSPHRASE }}
+          KEY: ${{ secrets.VPS_SSH_KEY }}
         with:
           source: "."
           target: "/home/wpt/public_html/tomsramek.com"
@@ -27,5 +27,5 @@ jobs:
           host: ${{ secrets.IP }}
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSH_PASSPHRASE }}
+          KEY: ${{ secrets.VPS_SSH_KEY }}
           script: ls

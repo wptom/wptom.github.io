@@ -1,23 +1,31 @@
 name: Deploy to VPS
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
-  deploy:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.IP }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSH_PASSPHRASE }}
+        with:
+          source: "."
+          target: "/home/wpt/public_html/tomsramek.com"
 
-    - name: Copy files via SCP
-      run: |
-        scp -r * root@203.161.52.96:/home/wpt/public_html/tomsramek.com
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.IP }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSH_PASSPHRASE }}
+          script: ls

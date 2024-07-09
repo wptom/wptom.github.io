@@ -1,4 +1,4 @@
-name: Deploy to Namecheap VPS
+name: Deploy to VPS
 
 on:
   push:
@@ -10,16 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up SSH
-        uses: actions/checkout@v2
-        with:
-          host: ${{ secrets.IP }}
-          username: ${{ secrets.USERNAME }}
-          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+    - name: Install SSH client
+      run: sudo apt-get install openssh-client
 
-      - name: Copy files via SCP
-        run: |
-          scp -r * root@203.161.52.96:/home/wpt/public_html/tomsramek.com
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+    - name: Deploy files via SSH
+      run: |
+        rsync -avz --delete-after ./ root@203.161.52.96:/home/wpt/public_html/tomsramek.com

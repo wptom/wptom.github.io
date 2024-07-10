@@ -21,8 +21,8 @@ jobs:
       - name: Copy files into the server
         uses: appleboy/scp-action@v0.1.4
         with:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./
           target: /home/wpt/public_html/tomsramek.com
@@ -39,8 +39,8 @@ jobs:
           command: |
             cd /home/wpt/public_html/tomsramek.com
             # run any command you want.
-          SSH_HOST: ${{ secrets.SSH_HOST }}
+          host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.PORT }}
-          user: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY}}
           args: "-tt -vvv"

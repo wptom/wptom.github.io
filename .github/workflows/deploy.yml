@@ -26,13 +26,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./
           target: /home/wpt/public_html/tomsramek.com
-
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: '8.0'
-      - uses: actions/checkout@v4
-        with:
-          ref: dev
+          
       - name: Deploy
         uses: fifsky/ssh-action@master
         with:

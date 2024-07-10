@@ -1,23 +1,46 @@
+name: Deploy
+
 on:
   push:
     branches:
-      - master
-  workflow_dispatch:
-
+      - main
 jobs:
-  run_pull:
-    name: run pull
+  build:
+
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: install ssh keys
-        # check this thread to understand why its needed:
-        # https://stackoverflow.com/a/70447517
-        run: |
-          install -m 600 -D /dev/null ~/.ssh/wptom
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/wptom
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-      - name: connect and pull
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
-      - name: cleanup
-        run: rm -rf ~/.ssh
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup SSH connection
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy files into the server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ./
+          target: /home/wpt/public_html/tomsramek.com
+
+      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: '8.0'
+      - uses: actions/checkout@v3
+        with:
+          ref: dev
+      - name: Deploy
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /home/wpt/public_html/tomsramek.com
+            # run any command you want.
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
+          args: "-tt -vvv"

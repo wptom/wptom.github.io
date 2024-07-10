@@ -26,7 +26,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./
           target: /home/wpt/public_html/tomsramek.com
-          
+
       - name: Deploy
         uses: fifsky/ssh-action@master
         with:

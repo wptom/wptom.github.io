@@ -22,6 +22,7 @@
   </head>
 
   <body>
+  <canvas id="gradient-canvas" style="width:100vw;height:100vh"></canvas>
     <div class="wrapper">
       <h1 class="title">TOM SRAMEK</h1>
 
@@ -55,5 +56,10 @@
       </nav>
     </div>
     <!-- /.wrapper -->
+    <script src="js/gradient.js"></script>
+  <script>
+    var gradient = new Gradient()
+    gradient.initGradient('#gradient-canvas');
+  </script>
   </body>
 </html>
